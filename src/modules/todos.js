@@ -1,5 +1,6 @@
 import "../style.css";
 import { v4 as uuidv4 } from "uuid";
+const { format, parseISO } = require("date-fns");
 import { addToStorage, getFromStorage } from "./storage";
 
 class Todo {
@@ -31,9 +32,6 @@ export class TodoManager {
 
     addTodo(title, description, dueDate, priority , projectTag="defaultTodos", isCompleted=false) {
         const todo = new Todo(title, description, dueDate, priority, projectTag, isCompleted);
-        console.log(this.todos.indexOf(title));
-        console.log(this.todos);
-        console.log(title);
         
         this.todos.some(todo => (todo.title === title && todo.projectTag === projectTag)) ?
                                     console.log(`${title} already exists !!!`) :
@@ -69,4 +67,12 @@ export class TodoManager {
         this.saveToLocalStorage();
     }
 
+    getTodos() {
+        const todoList = this.todos.map((todo) => ({
+            ...todo,  // Spread the other properties of the todo object
+            dueDate: format(parseISO(todo.dueDate), 'LLLL do, yyyy', { awareOfUnicodeTokens: true })
+        }));
+                                                        
+        return todoList;
+    }
 }
