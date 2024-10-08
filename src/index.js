@@ -1,4 +1,5 @@
-import "./style.css";
+import "./css/style.css";
+import "./css/sidebar.css";
 import { TodoManager } from "./modules/todos";
 import { ProjectManager } from "./modules/projects";
 

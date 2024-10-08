@@ -1,4 +1,4 @@
-import "../style.css";
+import "../css/style.css";
 import { v4 as uuidv4 } from "uuid";
 const { format, parseISO } = require("date-fns");
 import { addToStorage, getFromStorage } from "./storage";

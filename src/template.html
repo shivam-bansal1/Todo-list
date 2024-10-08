@@ -4,8 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo Project</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
-    
+    <div id="content">
+        <div class="sidebar">
+
+            <div class="greeting-div">
+                <button class="github-button">
+                    <i class="fa fa-github" aria-hidden="true"></i>
+                </button>
+                Hi, Shivam
+            </div>
+            
+            <div class="todo-actions-container">
+                <ul>
+                    <li>
+                        <button id="add-task" class="task-action-button">
+                            <span><i class="fa fa-plus" aria-hidden="true"></i></span>
+                            Add Task
+                        </button>
+                    </li>
+                    <li>
+                        <button id="today-task" class="task-action-button">
+                            <span><i class="fa fa-list" aria-hidden="true"></i></span>
+                            Today
+                        </button>
+                    </li>
+                    <li>
+                        <button id="this-week-task" class="task-action-button">
+                            <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                            This Week
+                        </button>
+                    </li>
+                    <li>
+                        <button id="all-tasks" class="task-action-button">
+                            <span><i class="fa fa-bars" aria-hidden="true"></i></span>
+                            All Tasks
+                        </button>
+                    </li>
+                    <li>
+                        <button id="completed-tasks" class="task-action-button">
+                            <span><i class="fa fa-check-square-o" aria-hidden="true"></i></span>
+                            Completed
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="projects-container">
+                <h2>My Projects</h2>
+
+                <ul>
+                    <li>
+                        <button class="project-tag">
+                            <span><i class="fa fa-tag" aria-hidden="true"></i></i></span>
+                            Workout
+                        </button>
+                    </li>
+                    <li>
+                        <button class="project-tag">
+                            <span><i class="fa fa-tag" aria-hidden="true"></i></i></span>
+                            Self Study
+                        </button>
+                    </li>
+                    <li>
+                        <button class="project-tag">
+                            <span><i class="fa fa-tag" aria-hidden="true"></i></i></span>
+                            Office
+                        </button>
+                    </li>
+                    <li>
+                        <button class="project-tag">
+                            <span><i class="fa fa-tag" aria-hidden="true"></i></i></span>
+                            Home
+                        </button>
+                    </li>
+                    <li>
+                        <button class="project-tag">
+                            <span><i class="fa fa-tag" aria-hidden="true"></i></i></span>
+                            Freelance
+                        </button>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
 </body>
 </html>

@@ -1,0 +1,11 @@
+:root {
+    --light-gray-background: #ededed84;
+    --dark-gray-background: rgb(211, 211, 211);
+    --dark-gray-font: #585959;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}

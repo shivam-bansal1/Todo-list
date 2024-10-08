@@ -1,4 +1,4 @@
-import "../style.css";
+import "../css/style.css";
 import { addToStorage, getFromStorage } from "./storage";
 
 export class ProjectManager {

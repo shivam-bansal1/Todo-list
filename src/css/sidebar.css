@@ -1,0 +1,78 @@
+.sidebar {
+    background-color: var(--light-gray-background);
+    position: fixed;
+    overflow: hidden;
+
+    height: 100%;
+    width: 320px;
+    padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 36px;
+}
+
+/* GREETING  */
+
+.greeting-div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    font-size: 32px;
+}
+
+.github-button {
+    font-size: 52px;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.github-button:hover {
+    transform: scale(1.4);
+}
+
+/* TODO ACTION and PROJECTS */
+
+.todo-actions-container ul,
+.projects-container ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.todo-actions-container ul li,
+.projects-container ul li{
+    display: list-item;
+    margin-bottom: 10px;
+}
+
+.task-action-button,
+.project-tag {
+    width: 100%;
+    font-size: 18px;
+    padding: 10px 14px;
+
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    
+    background-color: transparent;
+    color: var(--dark-gray-font);
+
+    display: flex;
+    gap: 12px;
+}
+
+.task-action-button:active,
+.project-tag:active {
+    background-color: var(--dark-gray-background);
+    color: black;
+}
+
+.task-action-button:hover,
+.project-tag:hover  {
+    transform: scale(1.1);
+}
