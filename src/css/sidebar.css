@@ -36,6 +36,10 @@
     cursor: pointer;
 }
 
+.github-button:visited {
+    color: transparent;
+}
+
 .github-button:hover {
     transform: scale(1.4);
 }
