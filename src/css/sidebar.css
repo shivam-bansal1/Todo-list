@@ -6,8 +6,9 @@
 
 .sidebar {
     background-color: var(--light-gray-background);
-    position: fixed;
+    position: absolute;
     overflow: auto;
+    z-index: 1;
 
     height: 100%;
     width: 320px;
