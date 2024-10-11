@@ -1,9 +1,12 @@
 /* Main Section */
 
-.main {
+.main-section {
     position: relative;
     left: 320px; /* Shifted by the sidebar width */
     width: calc(100% - 320px); 
+
+    /* display: grid;
+    grid-template-columns: 1fr 450px; */
 }
 
 #todos-section {

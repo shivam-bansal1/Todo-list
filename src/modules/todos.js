@@ -1,6 +1,5 @@
 import "../css/style.css";
 import { v4 as uuidv4 } from "uuid";
-const { format, parseISO } = require("date-fns");
 import { addToStorage, getFromStorage } from "./storage";
 
 class Todo {
@@ -67,12 +66,7 @@ export class TodoManager {
         this.saveToLocalStorage();
     }
 
-    getTodos() {
-        const todoList = this.todos.map((todo) => ({
-            ...todo,  // Spread the other properties of the todo object
-            dueDate: format(parseISO(todo.dueDate), 'LLLL do, yyyy', { awareOfUnicodeTokens: true })
-        }));
-                                                        
-        return todoList;
+    getTodos() {                                        
+        return this.todos;
     }
 }

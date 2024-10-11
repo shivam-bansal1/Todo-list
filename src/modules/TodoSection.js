@@ -1,10 +1,14 @@
 import "../css/style.css";
 import "../css/todosection.css";
 import { TodoManager } from "./todos";
+const { format, parseISO, isToday, startOfWeek, endOfWeek } = require("date-fns");
 
-export function createTodoSection() {
+export function createTodoSection(whichTodos) {
+    const main = document.querySelector(".main");
+    main.textContent = "";
+
     const mainSection = document.createElement("div");
-    mainSection.classList.add("main");
+    mainSection.classList.add("main-section");
 
     const TodoSection = document.createElement("div");
     TodoSection.setAttribute("id", "todos-section");
@@ -14,10 +18,9 @@ export function createTodoSection() {
     contentHeading.textContent = "Today";
 
     TodoSection.appendChild(contentHeading);
-    TodoSection.appendChild(loadTodoItems());
+    TodoSection.appendChild(loadTodoItems(whichTodos));
     mainSection.appendChild(TodoSection);
-
-    return mainSection
+    main.appendChild(mainSection);
 }
 
 function createHeader() {
@@ -52,21 +55,71 @@ function createHeader() {
     return header;
 }
 
-function loadTodoItems() {
+function loadTodoItems(whichTodos) {
     const TodoItemsContainer = document.createElement("div");
     TodoItemsContainer.setAttribute("id", "todos-container");
     TodoItemsContainer.appendChild(createHeader());
 
     const todoManagerObject = new TodoManager();
-    const todosList = todoManagerObject.getTodos();
-    console.log(todosList);
+    let todosList = todoManagerObject.getTodos();
+    // console.log(todosList);
+    
+    todosList = filterTodos(todosList, whichTodos);
+    // console.log(todosList);
 
-    todosList.forEach(todo => {
-        const item1 = createTodoItems(todo.title, todo.priority, todo.projectTag, todo.dueDate);
-        TodoItemsContainer.appendChild(item1);
-    });
+    if(todosList) {
+        // Change due date display format
+        todosList = todosList.map((todo) => ({
+            ...todo,  // Spread the other properties of the todo object
+            dueDate: format(parseISO(todo.dueDate), 'LLLL do, yyyy', { awareOfUnicodeTokens: true })
+        }));
+
+        todosList.forEach(todo => {
+            const item1 = createTodoItems(todo.title, todo.priority, todo.projectTag, todo.dueDate);
+            TodoItemsContainer.appendChild(item1);
+        });
+    }
     
     return TodoItemsContainer
+}
+
+function filterTodos(todosList, whichTodos) {
+    
+    if(whichTodos.slice(0,-5) === "all") {
+        return todosList;
+    }
+    else if(whichTodos.slice(0,-5) === "today") {
+        function filterTodayTodos(dateString) {
+            const date = parseISO(dateString);
+            const result = isToday(date);
+            console.log(result);
+            return result;
+        }
+
+        todosList = todosList.filter((todo)=> filterTodayTodos(todo.dueDate));
+        console.log(todosList);
+
+        return todosList
+
+    }
+    else if(whichTodos.slice(0,-5) === "this-week") {
+
+        function filterThisWeekTodos(dateString) {
+            const date = parseISO(dateString);
+            const start = startOfWeek(new Date(), { weekStartsOn: 1 }); // week starts on Monday
+            const end = endOfWeek(new Date(), { weekStartsOn: 1 });
+            const result = date >= start && date <= end;
+            return result;
+        }
+
+        todosList = todosList.filter((todo)=> filterThisWeekTodos(todo.dueDate));
+        console.log(todosList);
+
+        return todosList
+    }
+    else if(whichTodos.slice(0,-5) === "completed") {
+        return todosList.filter((todo) => todo.isCompleted === true);
+    }
 }
 
 function createTodoItems(title, priority, tag, dueDate) {
@@ -85,7 +138,10 @@ function createTodoItems(title, priority, tag, dueDate) {
 function todoValue(value) {
     const paraElement = document.createElement("p");
     paraElement.classList.add("todo-item-value");
-    paraElement.textContent = value;
+    if(value === "defaultTodos")
+        paraElement.textContent = "-";
+    else
+        paraElement.textContent = value;
     return paraElement;
 }
 
