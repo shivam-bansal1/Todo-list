@@ -1,5 +1,6 @@
 import "../css/style.css";
 import "../css/todosection.css";
+import { TodoManager } from "./todos";
 
 export function createTodoSection() {
     const mainSection = document.createElement("div");
@@ -54,13 +55,16 @@ function createHeader() {
 function loadTodoItems() {
     const TodoItemsContainer = document.createElement("div");
     TodoItemsContainer.setAttribute("id", "todos-container");
-
     TodoItemsContainer.appendChild(createHeader());
 
-    const item1 = createTodoItems("Shoulder Day", "Medium", "Gym", "October 10, 2024");
-    TodoItemsContainer.appendChild(item1);
-    const item2 = createTodoItems("Shoulder Day", "Medium", "Gym", "October 10, 2024");
-    TodoItemsContainer.appendChild(item2);
+    const todoManagerObject = new TodoManager();
+    const todosList = todoManagerObject.getTodos();
+    console.log(todosList);
+
+    todosList.forEach(todo => {
+        const item1 = createTodoItems(todo.title, todo.priority, todo.projectTag, todo.dueDate);
+        TodoItemsContainer.appendChild(item1);
+    });
     
     return TodoItemsContainer
 }
