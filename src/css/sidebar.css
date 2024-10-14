@@ -86,8 +86,7 @@
     gap: 12px;
 }
 
-.task-action-button:active,
-.project-tag:active {
+.selected {
     background-color: var(--dark-gray-background);
     color: black;
 }

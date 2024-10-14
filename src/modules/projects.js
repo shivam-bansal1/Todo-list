@@ -25,4 +25,8 @@ export class ProjectManager {
         this.projects = this.projects.filter((project) => project !== projectName);
         this.saveToLocalStorage();
     }
+
+    getProjects() {                                        
+        return this.projects;
+    }
 }
