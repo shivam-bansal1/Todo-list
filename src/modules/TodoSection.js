@@ -62,10 +62,7 @@ function loadTodoItems(whichTodos) {
 
     const todoManagerObject = new TodoManager();
     let todosList = todoManagerObject.getTodos();
-    // console.log(todosList);
-    
     todosList = filterTodos(todosList, whichTodos);
-    // console.log(todosList);
 
     if(todosList) {
         // Change due date display format
@@ -92,13 +89,10 @@ function filterTodos(todosList, whichTodos) {
         function filterTodayTodos(dateString) {
             const date = parseISO(dateString);
             const result = isToday(date);
-            console.log(result);
             return result;
         }
 
         todosList = todosList.filter((todo)=> filterTodayTodos(todo.dueDate));
-        console.log(todosList);
-
         return todosList
 
     }
@@ -111,10 +105,8 @@ function filterTodos(todosList, whichTodos) {
             const result = date >= start && date <= end;
             return result;
         }
-
+        
         todosList = todosList.filter((todo)=> filterThisWeekTodos(todo.dueDate));
-        console.log(todosList);
-
         return todosList
     }
     else if(whichTodos.slice(0,-5) === "completed") {

@@ -17,7 +17,13 @@ export class ProjectManager {
     }
 
     createProject(projectName) {
-        this.projects.indexOf(projectName) === -1 ? this.projects.push(projectName) : console.log("This project already exists!!");
+        function capitalize(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+        }
+
+        this.projects.indexOf(capitalize(projectName)) === -1 ? 
+                    this.projects.push(capitalize(projectName)) : 
+                    alert("Project already exists!!");
         this.saveToLocalStorage();
     }
 

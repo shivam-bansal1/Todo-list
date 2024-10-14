@@ -1,6 +1,5 @@
 import "../css/style.css";
 import "../css/sidebar.css";
-import { TodoManager } from "./todos";
 import { ProjectManager } from "./projects";
 
 export function createSidebar() {
@@ -66,6 +65,7 @@ function createTodoActionList(idName, fontIconClass, todoAction) {
 }
 
 function projectSection() {
+    const ProjectManagerObject = new ProjectManager();
     const projectsContainer = document.createElement("div");
     projectsContainer.classList.add("projects-container");
 
@@ -75,9 +75,9 @@ function projectSection() {
 
     const listContainer = document.createElement("ul");
     listContainer.appendChild(createTodoActionList("add-project", "fa-plus", "Add Project"));
-    listContainer.appendChild(createProjectList("Workout"));
-    listContainer.appendChild(createProjectList("Self Study"));
-    listContainer.appendChild(createProjectList("Office"));
+    
+    const projectsList = ProjectManagerObject.getProjects();
+    projectsList.forEach((project) => listContainer.appendChild(createProjectList(project)));
     
     projectsContainer.appendChild(listContainer);
     return projectsContainer;

@@ -33,7 +33,7 @@ export class TodoManager {
         const todo = new Todo(title, description, dueDate, priority, projectTag, isCompleted);
         
         this.todos.some(todo => (todo.title === title && todo.projectTag === projectTag)) ?
-                                    console.log(`${title} already exists !!!`) :
+                                    alert(`${title} already exists !!!`) :
                                     this.todos.push(todo);
                                     
         this.saveToLocalStorage();

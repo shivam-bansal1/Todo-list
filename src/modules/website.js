@@ -2,7 +2,7 @@ import "../css/style.css";
 import "../css/sidebar.css";
 import { createSidebar } from "./sidebar";
 import { createTodoSection } from "./TodoSection";
-import { addNewTodoDialog } from "./todoOperations";
+import { addNewTodoDialog, addNewProjectDialog } from "./todoOperations";
 
 function createMain() {
     const main = document.createElement("main");
@@ -17,6 +17,11 @@ export function ScreenController() {
     createTodoSection("all-task");
     document.querySelector("#all-task").classList.add("selected");
 
+    todoActions();
+    projectActions();
+}
+
+function todoActions() {
     document.querySelector("#today-task").
         addEventListener("click", (event)=> {
             setNoActiveButton()
@@ -49,6 +54,18 @@ export function ScreenController() {
             document.querySelector("body").style.opacity = 0.3;
             dialog.showModal();
     })
+}
+
+function projectActions() {
+    document.querySelector("#add-project").
+        addEventListener("click", (event)=> {
+            setNoActiveButton()
+            event.target.classList.add("selected");
+            const dialog = addNewProjectDialog();
+            document.querySelector("body").style.opacity = 0.3;
+            dialog.showModal();
+    })
+    
 }
 
 function setNoActiveButton() {
