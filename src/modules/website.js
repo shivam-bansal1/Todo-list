@@ -2,7 +2,7 @@ import "../css/style.css";
 import "../css/sidebar.css";
 import { createSidebar } from "./sidebar";
 import { createTodoSection } from "./TodoSection";
-import { addNewTodoDialog, addNewProjectDialog } from "./todoOperations";
+import { addNewTodoDialog, addNewProjectDialog, deleteProject } from "./todoOperations";
 
 function createMain() {
     const main = document.createElement("main");
@@ -66,6 +66,7 @@ function projectActions() {
             dialog.showModal();
     })
     
+    deleteProject();
 }
 
 function setNoActiveButton() {

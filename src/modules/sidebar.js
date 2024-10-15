@@ -97,6 +97,7 @@ function createProjectList(projectName) {
     // Delete Button
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("delete-project-button");
+    deleteButton.setAttribute("value", projectName);
     const deleteIcon = document.createElement("i");
     deleteIcon.classList.add("fa", "fa-trash-can");
     deleteButton.appendChild(deleteIcon);

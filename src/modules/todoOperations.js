@@ -2,10 +2,11 @@ import "../css/style.css";
 import "../css/todooperations.css";
 import { TodoManager } from "./todos";
 import { ProjectManager } from "./projects";
-import { add } from "date-fns";
+
+const todoManagerObject = new TodoManager();
+const projectManagerObject = new ProjectManager();
 
 export function addNewTodoDialog() {
-    const projectManagerObject = new ProjectManager();
 
     const dialog = document.createElement("dialog");
     dialog.className = "add-todo-dialog";
@@ -92,7 +93,6 @@ function addNewTodo() {
     const priority = document.querySelector('#add-todo-priority').value;
     const dueDate = document.querySelector('#add-todo-due-date').value;
     
-    const todoManagerObject = new TodoManager();
     todoManagerObject.addTodo(title, description, dueDate, priority, project);
 
     document.querySelector(".add-todo-dialog").remove();
@@ -100,7 +100,6 @@ function addNewTodo() {
 }
 
 export function addNewProjectDialog() {
-    const projectManagerObject = new ProjectManager();
 
     const dialog = document.createElement("dialog");
     dialog.className = "add-project-dialog";
@@ -158,6 +157,18 @@ export function addNewProjectDialog() {
 
     document.querySelector("#content").appendChild(dialog);
     return dialog
+}
+
+export function deleteProject() {
+    const deleteProjectButtons = document.querySelectorAll(".delete-project-button");
+    deleteProjectButtons.forEach((btn) => {
+        btn.addEventListener("click", (event) =>  {
+            const projectName  = event.target.parentElement.value;
+            console.log(projectName);
+            projectManagerObject.deleteProject(projectName);
+            window.location.reload();
+        });
+    } );
 }
 
 function createSelectBox(defaultText, defaultValue, selectOptions) {
