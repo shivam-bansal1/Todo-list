@@ -112,6 +112,11 @@ function filterTodos(todosList, whichTodos) {
     else if(whichTodos.slice(0,-5) === "completed") {
         return todosList.filter((todo) => todo.isCompleted === true);
     }
+    // Filtering todos based on project name
+    else {
+        todosList = todosList.filter((todo) => todo.projectTag === whichTodos);
+        return todosList;
+    }
 }
 
 function createTodoItems(title, priority, tag, dueDate) {

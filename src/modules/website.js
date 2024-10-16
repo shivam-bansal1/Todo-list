@@ -2,7 +2,8 @@ import "../css/style.css";
 import "../css/sidebar.css";
 import { createSidebar } from "./sidebar";
 import { createTodoSection } from "./TodoSection";
-import { addNewTodoDialog, addNewProjectDialog, deleteProject } from "./todoOperations";
+import { todoActions } from "./todoOperations";
+import { projectActions } from "./projectOperations";
 
 function createMain() {
     const main = document.createElement("main");
@@ -19,57 +20,4 @@ export function ScreenController() {
 
     todoActions();
     projectActions();
-}
-
-function todoActions() {
-    document.querySelector("#today-task").
-        addEventListener("click", (event)=> {
-            setNoActiveButton()
-            event.target.classList.add("selected");
-            createTodoSection(event.target.id);
-    })
-    document.querySelector("#this-week-task").
-        addEventListener("click", (event)=> {
-            setNoActiveButton()
-            event.target.classList.add("selected");
-            createTodoSection(event.target.id);
-    })
-    document.querySelector("#all-task").
-        addEventListener("click", (event)=> {
-            setNoActiveButton()
-            event.target.classList.add("selected");
-            createTodoSection(event.target.id);
-    })
-    document.querySelector("#completed-task").
-        addEventListener("click", (event)=> {
-            setNoActiveButton()
-            event.target.classList.add("selected");
-            createTodoSection(event.target.id);
-    })
-    document.querySelector("#add-task").
-        addEventListener("click", (event)=> {
-            setNoActiveButton()
-            event.target.classList.add("selected");
-            const dialog = addNewTodoDialog();
-            document.querySelector("body").style.opacity = 0.3;
-            dialog.showModal();
-    })
-}
-
-function projectActions() {
-    document.querySelector("#add-project").
-        addEventListener("click", (event)=> {
-            setNoActiveButton()
-            event.target.classList.add("selected");
-            const dialog = addNewProjectDialog();
-            document.querySelector("body").style.opacity = 0.3;
-            dialog.showModal();
-    })
-    
-    deleteProject();
-}
-
-function setNoActiveButton() {
-    const buttons = document.querySelectorAll(".task-action-button");
-    buttons.forEach((btn) => btn.classList.remove("selected"));
 }
