@@ -1,5 +1,6 @@
 import "../css/style.css";
 import { addToStorage, getFromStorage } from "./storage";
+import { capitalize } from "./helper ";
 
 export class ProjectManager {
     constructor() {
@@ -17,10 +18,6 @@ export class ProjectManager {
     }
 
     createProject(projectName) {
-        function capitalize(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-        }
-
         this.projects.indexOf(capitalize(projectName)) === -1 ? 
                     this.projects.push(capitalize(projectName)) : 
                     alert("Project already exists!!");

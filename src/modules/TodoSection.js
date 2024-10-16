@@ -1,6 +1,7 @@
 import "../css/style.css";
 import "../css/todosection.css";
 import { TodoManager } from "./todos";
+import { capitalize } from "./helper ";
 const { format, parseISO, isToday, startOfWeek, endOfWeek } = require("date-fns");
 
 export function createTodoSection(whichTodos) {
@@ -15,7 +16,7 @@ export function createTodoSection(whichTodos) {
 
     const contentHeading = document.createElement("h2");
     contentHeading.setAttribute("id", "content-heading");
-    contentHeading.textContent = "Today";
+    contentHeading.textContent = capitalize(whichTodos);
 
     TodoSection.appendChild(contentHeading);
     TodoSection.appendChild(loadTodoItems(whichTodos));
@@ -72,7 +73,7 @@ function loadTodoItems(whichTodos) {
         }));
 
         todosList.forEach(todo => {
-            const item1 = createTodoItems(todo.title, todo.priority, todo.projectTag, todo.dueDate);
+            const item1 = createTodoItems(todo.id, todo.title, todo.priority, todo.projectTag, todo.dueDate, todo.isCompleted);
             TodoItemsContainer.appendChild(item1);
         });
     }
@@ -82,10 +83,10 @@ function loadTodoItems(whichTodos) {
 
 function filterTodos(todosList, whichTodos) {
     
-    if(whichTodos.slice(0,-5) === "all") {
+    if(whichTodos === "all") {
         return todosList;
     }
-    else if(whichTodos.slice(0,-5) === "today") {
+    else if(whichTodos === "today") {
         function filterTodayTodos(dateString) {
             const date = parseISO(dateString);
             const result = isToday(date);
@@ -96,7 +97,7 @@ function filterTodos(todosList, whichTodos) {
         return todosList
 
     }
-    else if(whichTodos.slice(0,-5) === "this-week") {
+    else if(whichTodos === "this-week") {
 
         function filterThisWeekTodos(dateString) {
             const date = parseISO(dateString);
@@ -109,7 +110,7 @@ function filterTodos(todosList, whichTodos) {
         todosList = todosList.filter((todo)=> filterThisWeekTodos(todo.dueDate));
         return todosList
     }
-    else if(whichTodos.slice(0,-5) === "completed") {
+    else if(whichTodos === "completed") {
         return todosList.filter((todo) => todo.isCompleted === true);
     }
     // Filtering todos based on project name
@@ -119,22 +120,24 @@ function filterTodos(todosList, whichTodos) {
     }
 }
 
-function createTodoItems(title, priority, tag, dueDate) {
+function createTodoItems(id, title, priority, tag, dueDate, isCompleted) {
     const TodoItem = document.createElement("div");
     TodoItem.classList.add("todo-item");
 
-    TodoItem.appendChild(todoValue(title));
-    TodoItem.appendChild(todoValue(priority));
-    TodoItem.appendChild(todoValue(tag));
-    TodoItem.appendChild(todoValue(dueDate));
-    TodoItem.appendChild(createFinishedToggle());
+    TodoItem.appendChild(todoValue(id, title));
+    TodoItem.appendChild(todoValue(id, priority));
+    TodoItem.appendChild(todoValue(id, tag));
+    TodoItem.appendChild(todoValue(id, dueDate));
+    TodoItem.appendChild(createFinishedToggle(id, isCompleted));
 
     return TodoItem;
 }
 
-function todoValue(value) {
+function todoValue(id, value) {
     const paraElement = document.createElement("p");
-    paraElement.classList.add("todo-item-value");
+    // paraElement.classList.add("todo-item-value", id);
+    paraElement.setAttribute("data-todo-id", id);
+    
     if(value === "defaultTodos")
         paraElement.textContent = "-";
     else
@@ -142,15 +145,24 @@ function todoValue(value) {
     return paraElement;
 }
 
-function createFinishedToggle() {
+function createFinishedToggle(id, isCompleted) {
     const finishedToggle = document.createElement("div");
     finishedToggle.classList.add("todo-item-value");
     const label = document.createElement("label");
     label.classList.add("switch");
+    label.setAttribute("data-todo-id", id);
+
     const input = document.createElement("input");
     input.type = "checkbox";
+    // input.classList.add(id);
+    input.setAttribute("data-todo-id", id);
+
+    if(isCompleted === true)
+        input.checked = true;
+
     const span = document.createElement("span");
     span.classList.add("slider");
+
 
     label.appendChild(input);
     label.appendChild(span);

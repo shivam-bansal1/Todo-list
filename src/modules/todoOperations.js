@@ -9,30 +9,32 @@ const todoManagerObject = new TodoManager();
 const projectManagerObject = new ProjectManager();
 
 export function todoActions() {
+    // Filter todo events
     document.querySelector("#today-task").
         addEventListener("click", (event)=> {
             setNoActiveButton()
             event.target.classList.add("selected");
-            createTodoSection(event.target.id);
+            createTodoSection(event.target.id.slice(0,-5));
     })
     document.querySelector("#this-week-task").
         addEventListener("click", (event)=> {
             setNoActiveButton()
             event.target.classList.add("selected");
-            createTodoSection(event.target.id);
+            createTodoSection(event.target.id.slice(0,-5));
     })
     document.querySelector("#all-task").
         addEventListener("click", (event)=> {
             setNoActiveButton()
             event.target.classList.add("selected");
-            createTodoSection(event.target.id);
+            createTodoSection(event.target.id.slice(0,-5));
     })
     document.querySelector("#completed-task").
         addEventListener("click", (event)=> {
             setNoActiveButton()
             event.target.classList.add("selected");
-            createTodoSection(event.target.id);
+            createTodoSection(event.target.id.slice(0,-5));
     })
+    // Add new task event
     document.querySelector("#add-task").
         addEventListener("click", (event)=> {
             setNoActiveButton()
@@ -41,6 +43,14 @@ export function todoActions() {
             document.querySelector("body").style.opacity = 0.3;
             dialog.showModal();
     })
+    // Mark as completed event
+    const sliders = document.querySelectorAll(".slider");
+    sliders.forEach((slider) => {
+        slider.addEventListener("click", (event)=> {
+            const todoId = event.target.parentElement.dataset.todoId;
+            todoManagerObject.toggleComplete(todoId);
+        });
+    });
 }
 
 function addNewTodoDialog() {

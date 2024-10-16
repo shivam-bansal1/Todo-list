@@ -15,7 +15,7 @@ export function ScreenController() {
     const contentDiv = document.querySelector("#content");
     contentDiv.appendChild(createSidebar());
     contentDiv.appendChild(createMain());
-    createTodoSection("all-task");
+    createTodoSection("all");
     document.querySelector("#all-task").classList.add("selected");
 
     todoActions();
