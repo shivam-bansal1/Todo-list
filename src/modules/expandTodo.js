@@ -1,3 +1,4 @@
+import "../css/style.css";
 import "../css/expandtodo.css";
 import { TodoManager } from "./todos";
 import { ProjectManager } from "./projects";
@@ -79,6 +80,19 @@ function expandTodo(todoId) {
     dueDate.value = todoInfo.dueDate;
     // dueDate.setAttribute("id", "add-todo-due-date");description
     expandedTodo.appendChild(dueDate);
+
+    // Header 
+    const buttonContainer = document.createElement("div");
+    buttonContainer.className = "action-buttons";
+    expandedTodo.appendChild(buttonContainer);
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete-button");
+    deleteButton.textContent = "Delete";
+    buttonContainer.appendChild(deleteButton);
+    const updateButton = document.createElement("button");
+    updateButton.classList.add("update-button");
+    updateButton.textContent = "Update";
+    buttonContainer.appendChild(updateButton);
 
     // Remove existing Expanded Todo
     const childElement = document.querySelector(".outer-container");

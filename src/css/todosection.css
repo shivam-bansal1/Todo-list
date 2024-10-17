@@ -6,7 +6,6 @@
     width: calc(100% - 320px); 
 
     display: grid;
-    /* grid-template-columns: 1fr 450px; */
 }
 
 #todos-section {
@@ -95,11 +94,11 @@
 }
 
 input:checked + .slider {
-    background-color: rgb(82, 173, 82);
+    background-color: var(--green-color);
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px rgb(82, 173, 82);
+    box-shadow: 0 0 1px var(--green-color);
 }
 
 input:checked + .slider:before {
