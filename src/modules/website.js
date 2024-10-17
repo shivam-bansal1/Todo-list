@@ -4,6 +4,7 @@ import { createSidebar } from "./sidebar";
 import { createTodoSection } from "./TodoSection";
 import { todoActions } from "./todoOperations";
 import { projectActions } from "./projectOperations";
+import { todoViewer } from "./expandTodo";
 
 function createMain() {
     const main = document.createElement("main");
@@ -20,4 +21,5 @@ export function ScreenController() {
 
     todoActions();
     projectActions();
+    todoViewer();
 }

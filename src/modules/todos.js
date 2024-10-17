@@ -29,7 +29,7 @@ export class TodoManager {
         addToStorage(this.storageName, JSON.stringify(this.todos));
     }
 
-    addTodo(title, description, dueDate, priority , projectTag="defaultTodos", isCompleted=false) {
+    addTodo(title, description, dueDate, priority , projectTag="Todos", isCompleted=false) {
         const todo = new Todo(title, description, dueDate, priority, projectTag, isCompleted);
         
         this.todos.some(todo => (todo.title === title && todo.projectTag === projectTag)) ?

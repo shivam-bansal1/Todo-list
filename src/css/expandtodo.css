@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.outer-container {
+    background-color: var(--light-gray-background);
+    position: absolute;
+    overflow: auto;
+    right: 0;
+    z-index: 1;
+
+    height: 100%;
+    width: 450px;
+    padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.todo-viewer-div {
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.close-button {
+    width: 60px;
+    font-size: 20px;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    color: var(--red-color);
+    cursor: pointer;
+    font-size: 32px;
+}
+
+.close-button:hover {
+    transform: scale(1.2);
+}

@@ -6,10 +6,10 @@ const { format, parseISO, isToday, startOfWeek, endOfWeek } = require("date-fns"
 
 export function createTodoSection(whichTodos) {
     const main = document.querySelector(".main");
-    main.textContent = "";
+    main.innerHTML = "";
 
     const mainSection = document.createElement("div");
-    mainSection.classList.add("main-section");
+    mainSection.className = "main-section";
 
     const TodoSection = document.createElement("div");
     TodoSection.setAttribute("id", "todos-section");
@@ -123,6 +123,7 @@ function filterTodos(todosList, whichTodos) {
 function createTodoItems(id, title, priority, tag, dueDate, isCompleted) {
     const TodoItem = document.createElement("div");
     TodoItem.classList.add("todo-item");
+    TodoItem.setAttribute("data-todo-id", id);
 
     TodoItem.appendChild(todoValue(id, title));
     TodoItem.appendChild(todoValue(id, priority));
@@ -138,7 +139,7 @@ function todoValue(id, value) {
     // paraElement.classList.add("todo-item-value", id);
     paraElement.setAttribute("data-todo-id", id);
     
-    if(value === "defaultTodos")
+    if(value === "Todos")
         paraElement.textContent = "-";
     else
         paraElement.textContent = value;
@@ -161,6 +162,7 @@ function createFinishedToggle(id, isCompleted) {
         input.checked = true;
 
     const span = document.createElement("span");
+    span.setAttribute("data-todo-id", id);
     span.classList.add("slider");
 
 

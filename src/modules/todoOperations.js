@@ -4,6 +4,7 @@ import { TodoManager } from "./todos";
 import { ProjectManager } from "./projects";
 import { createTodoSection } from "./TodoSection";
 import { setNoActiveButton } from "./helper ";
+import { todoViewer } from "./expandTodo";
 
 const todoManagerObject = new TodoManager();
 const projectManagerObject = new ProjectManager();
@@ -15,24 +16,32 @@ export function todoActions() {
             setNoActiveButton()
             event.target.classList.add("selected");
             createTodoSection(event.target.id.slice(0,-5));
+            markAsDoneTodo();
+            todoViewer();
     })
     document.querySelector("#this-week-task").
         addEventListener("click", (event)=> {
             setNoActiveButton()
             event.target.classList.add("selected");
             createTodoSection(event.target.id.slice(0,-5));
+            markAsDoneTodo();
+            todoViewer();
     })
     document.querySelector("#all-task").
         addEventListener("click", (event)=> {
             setNoActiveButton()
             event.target.classList.add("selected");
             createTodoSection(event.target.id.slice(0,-5));
+            markAsDoneTodo();
+            todoViewer();
     })
     document.querySelector("#completed-task").
         addEventListener("click", (event)=> {
             setNoActiveButton()
             event.target.classList.add("selected");
             createTodoSection(event.target.id.slice(0,-5));
+            markAsDoneTodo();
+            todoViewer();
     })
     // Add new task event
     document.querySelector("#add-task").
@@ -44,6 +53,11 @@ export function todoActions() {
             dialog.showModal();
     })
     // Mark as completed event
+    markAsDoneTodo();
+    todoViewer();
+}
+
+function markAsDoneTodo() {
     const sliders = document.querySelectorAll(".slider");
     sliders.forEach((slider) => {
         slider.addEventListener("click", (event)=> {
@@ -84,7 +98,7 @@ function addNewTodoDialog() {
     dialogForm.appendChild(DescriptionInput);
 
     const projectOptions = projectManagerObject.getProjects();
-    const projectSelectBox = createSelectBox("Project", "defaultTodos", projectOptions);
+    const projectSelectBox = createSelectBox("Project", "Todos", projectOptions);
     projectSelectBox.setAttribute("id", "add-todo-project");
     dialogForm.appendChild(projectSelectBox);
 

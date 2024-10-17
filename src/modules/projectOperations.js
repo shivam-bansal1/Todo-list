@@ -3,6 +3,7 @@ import "../css/todooperations.css";
 import { ProjectManager } from "./projects";
 import { createTodoSection } from "./TodoSection";
 import { setNoActiveButton } from "./helper ";
+import { todoViewer } from "./expandTodo";
 
 const projectManagerObject = new ProjectManager();
 
@@ -100,6 +101,7 @@ export function projectTodos() {
             const projectName = event.target.textContent;
             createTodoSection(projectName);
             event.target.classList.add("selected");
+            todoViewer();
         });
     });
 }
