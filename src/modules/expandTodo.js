@@ -52,25 +52,25 @@ function expandTodo(todoId) {
     const todoInfo = todoManagerObject.getTodos().filter((todo) => todo.id === todoId)[0];
 
     const title = document.createElement("input");
-    // title.setAttribute("id", "add-todo-title");
+    title.setAttribute("id", "expanded-todo-title");
     title.value = todoInfo.title;
     title.required = true;
     expandedTodo.appendChild(title);
     
     const Description = document.createElement("textarea");
-    // Description.setAttribute("id", "add-todo-description");
+    Description.setAttribute("id", "expanded-todo-description");
     Description.value = todoInfo.description;
     Description.required = true;
     expandedTodo.appendChild(Description);
 
     const projectOptions = projectManagerObject.getProjects();
     const projectSelectBox = createSelectBox(todoInfo.projectTag, projectOptions, "Todos");
-    // projectSelectBox.setAttribute("id", "add-todo-project");
+    projectSelectBox.setAttribute("id", "expanded-todo-project");
     expandedTodo.appendChild(projectSelectBox);
 
     const priorotyOptions = ["Low", "Medium", "High"];
     const prioritySelectBox = createSelectBox(todoInfo.priority, priorotyOptions, null);
-    // prioritySelectBox.setAttribute("id", "add-todo-priority");
+    prioritySelectBox.setAttribute("id", "expanded-todo-priority");
     expandedTodo.appendChild(prioritySelectBox);
 
     const dueDate = document.createElement("input");
@@ -78,7 +78,7 @@ function expandTodo(todoId) {
     dueDate.name =  "dueDate";
     dueDate.required = true;
     dueDate.value = todoInfo.dueDate;
-    // dueDate.setAttribute("id", "add-todo-due-date");description
+    dueDate.setAttribute("id", "expanded-todo-due-date");
     expandedTodo.appendChild(dueDate);
 
     // Header 
@@ -87,10 +87,13 @@ function expandTodo(todoId) {
     expandedTodo.appendChild(buttonContainer);
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("delete-button");
+    deleteButton.setAttribute("data-todo-id", todoInfo.id);
     deleteButton.textContent = "Delete";
     buttonContainer.appendChild(deleteButton);
+
     const updateButton = document.createElement("button");
     updateButton.classList.add("update-button");
+    updateButton.setAttribute("data-todo-id", todoInfo.id);
     updateButton.textContent = "Update";
     buttonContainer.appendChild(updateButton);
 
@@ -103,6 +106,8 @@ function expandTodo(todoId) {
     mainSection.appendChild(outerContainer);
     // Close Expanded Todo
     closeExpandedTodo();
+    deleteTodo();
+    updateTodo();
 }
 
 function closeExpandedTodo() {
@@ -138,4 +143,28 @@ function createSelectBox(selectedValue, selectOptions, defaultValue) {
     }
 
     return selectElement;
+}
+
+function deleteTodo() {
+    const deleteButton = document.querySelector(".delete-button");
+    deleteButton.addEventListener("click" , ()=> {
+        const todoId = deleteButton.dataset.todoId;
+        todoManagerObject.removeTodo(todoId);
+        window.location.reload();
+    });
+}
+
+function updateTodo() {
+    const updateButton = document.querySelector(".update-button");
+    updateButton.addEventListener("click" , ()=> {
+        const todoId = updateButton.dataset.todoId;
+        const title = document.querySelector("#expanded-todo-title").value;
+        const description = document.querySelector("#expanded-todo-description").value;
+        const dueDate = document.querySelector("#expanded-todo-due-date").value;
+        const project = document.querySelector("#expanded-todo-project").value;
+        const priority = document.querySelector("#expanded-todo-priority").value;
+
+        todoManagerObject.updateTodo(todoId, title, description, dueDate, priority, project);
+        window.location.reload();
+    });
 }
