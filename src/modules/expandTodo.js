@@ -63,23 +63,34 @@ function expandTodo(todoId) {
     Description.required = true;
     expandedTodo.appendChild(Description);
 
+    const projectField = document.createElement("div");
+    projectField.className = "field-container";
+    expandedTodo.appendChild(projectField);
+    projectField.appendChild(document.createElement("span")).textContent = "Project :";
     const projectOptions = projectManagerObject.getProjects();
     const projectSelectBox = createSelectBox(todoInfo.projectTag, projectOptions, "Todos");
     projectSelectBox.setAttribute("id", "expanded-todo-project");
-    expandedTodo.appendChild(projectSelectBox);
+    projectField.appendChild(projectSelectBox);
 
-    const priorotyOptions = ["Low", "Medium", "High"];
-    const prioritySelectBox = createSelectBox(todoInfo.priority, priorotyOptions, null);
+    const priorityField = document.createElement("div");
+    priorityField.className = "field-container";
+    expandedTodo.appendChild(priorityField);
+    priorityField.appendChild(document.createElement("span")).textContent = "Priority :";
+    const priorityOptions = ["Low", "Medium", "High"];
+    const prioritySelectBox = createSelectBox(todoInfo.priority, priorityOptions, null);
     prioritySelectBox.setAttribute("id", "expanded-todo-priority");
-    expandedTodo.appendChild(prioritySelectBox);
+    priorityField.appendChild(prioritySelectBox);
 
+    const dueDateField = document.createElement("div");
+    dueDateField.className = "field-container";
+    expandedTodo.appendChild(dueDateField);
+    dueDateField.appendChild(document.createElement("span")).textContent = "Due Date :";
     const dueDate = document.createElement("input");
     dueDate.type =  "date";
-    dueDate.name =  "dueDate";
     dueDate.required = true;
     dueDate.value = todoInfo.dueDate;
     dueDate.setAttribute("id", "expanded-todo-due-date");
-    expandedTodo.appendChild(dueDate);
+    dueDateField.appendChild(dueDate);
 
     // Header 
     const buttonContainer = document.createElement("div");
