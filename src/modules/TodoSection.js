@@ -20,6 +20,7 @@ export function createTodoSection(whichTodos) {
 
     TodoSection.appendChild(contentHeading);
     TodoSection.appendChild(loadTodoItems(whichTodos));
+    TodoSection.appendChild(getPaginator());
     mainSection.appendChild(TodoSection);
     main.appendChild(mainSection);
 }
@@ -56,7 +57,7 @@ function createHeader() {
     return header;
 }
 
-function loadTodoItems(whichTodos) {
+function loadTodoItems(whichTodos, pageNumber=1) {
     const TodoItemsContainer = document.createElement("div");
     TodoItemsContainer.setAttribute("id", "todos-container");
     TodoItemsContainer.appendChild(createHeader());
@@ -66,6 +67,14 @@ function loadTodoItems(whichTodos) {
     todosList = filterTodos(todosList, whichTodos);
 
     if(todosList) {
+        // Pagination Logic
+        const todosPerPage = 8;
+        if(todosList.length > todosPerPage) {
+            const start = (pageNumber-1) * todosPerPage;
+            const end = start + todosPerPage;
+            todosList = todosList.slice(start, end);
+        }
+
         // Change due date display format
         todosList = todosList.map((todo) => ({
             ...todo,  // Spread the other properties of the todo object
@@ -125,7 +134,7 @@ function createTodoItems(id, title, priority, tag, dueDate, isCompleted) {
     TodoItem.classList.add("todo-item");
     TodoItem.setAttribute("data-todo-id", id);
 
-    TodoItem.appendChild(todoValue(id, title));
+    TodoItem.appendChild(todoValue(id, truncateTitle(title)));
     TodoItem.appendChild(todoValue(id, priority));
     TodoItem.appendChild(todoValue(id, tag));
     TodoItem.appendChild(todoValue(id, dueDate));
@@ -136,7 +145,6 @@ function createTodoItems(id, title, priority, tag, dueDate, isCompleted) {
 
 function todoValue(id, value) {
     const paraElement = document.createElement("p");
-    // paraElement.classList.add("todo-item-value", id);
     paraElement.setAttribute("data-todo-id", id);
     
     if(value === "Todos")
@@ -144,6 +152,10 @@ function todoValue(id, value) {
     else
         paraElement.textContent = value;
     return paraElement;
+}
+
+function truncateTitle(title, maxLength=20) {
+    return title.length > maxLength ? title.substring(0, maxLength) + "..." : title;
 }
 
 function createFinishedToggle(id, isCompleted) {
@@ -155,7 +167,6 @@ function createFinishedToggle(id, isCompleted) {
 
     const input = document.createElement("input");
     input.type = "checkbox";
-    // input.classList.add(id);
     input.setAttribute("data-todo-id", id);
 
     if(isCompleted === true)
@@ -171,4 +182,27 @@ function createFinishedToggle(id, isCompleted) {
     finishedToggle.appendChild(label);
 
     return finishedToggle;
+}
+
+function getPaginator() {
+    const paginator = document.createElement("div");
+    paginator.className = "paginator";
+    
+    const prevButton = document.createElement("button");
+    prevButton.textContent = "Previous";
+    prevButton.className = "prev-button";
+
+    const pageInfo = document.createElement("span");
+    pageInfo.textContent = "Page 1 of 2";
+    pageInfo.className = "page-info";
+
+    const nextButton = document.createElement("button");
+    nextButton.textContent = "Next";
+    nextButton.className = "next-button";
+
+    paginator.appendChild(prevButton);
+    paginator.appendChild(pageInfo);
+    paginator.appendChild(nextButton);
+
+    return paginator;
 }
