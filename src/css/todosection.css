@@ -4,12 +4,13 @@
     position: relative;
     left: 320px; /* Shifted by the sidebar width */
     width: calc(100% - 320px); 
-
+    height: 100vh;;
     display: grid;
 }
 
 #todos-section {
     padding: 20px;
+    overflow-y: auto;
 }
 
 #content-heading {
@@ -20,7 +21,6 @@
 .todo-header,
 .todo-item {
     display: grid;
-    /* grid-template-columns: repeat(5, 1fr); */
     grid-template-columns: 1.5fr 1fr 1fr 1.5fr 1fr;
     gap: 20px;
     font-size: 26px;
@@ -117,14 +117,4 @@ input:checked + .slider:before {
 
 .slider:before {
     border-radius: 50%;
-}
-
-/* Paginator */
-
-.paginator {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    margin-top: 60px;
 }

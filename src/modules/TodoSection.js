@@ -20,7 +20,6 @@ export function createTodoSection(whichTodos) {
 
     TodoSection.appendChild(contentHeading);
     TodoSection.appendChild(loadTodoItems(whichTodos));
-    TodoSection.appendChild(getPaginator());
     mainSection.appendChild(TodoSection);
     main.appendChild(mainSection);
 }
@@ -57,7 +56,7 @@ function createHeader() {
     return header;
 }
 
-function loadTodoItems(whichTodos, pageNumber=1) {
+function loadTodoItems(whichTodos) {
     const TodoItemsContainer = document.createElement("div");
     TodoItemsContainer.setAttribute("id", "todos-container");
     TodoItemsContainer.appendChild(createHeader());
@@ -67,14 +66,6 @@ function loadTodoItems(whichTodos, pageNumber=1) {
     todosList = filterTodos(todosList, whichTodos);
 
     if(todosList) {
-        // Pagination Logic
-        const todosPerPage = 8;
-        if(todosList.length > todosPerPage) {
-            const start = (pageNumber-1) * todosPerPage;
-            const end = start + todosPerPage;
-            todosList = todosList.slice(start, end);
-        }
-
         // Change due date display format
         todosList = todosList.map((todo) => ({
             ...todo,  // Spread the other properties of the todo object
@@ -176,33 +167,9 @@ function createFinishedToggle(id, isCompleted) {
     span.setAttribute("data-todo-id", id);
     span.classList.add("slider");
 
-
     label.appendChild(input);
     label.appendChild(span);
     finishedToggle.appendChild(label);
 
     return finishedToggle;
-}
-
-function getPaginator() {
-    const paginator = document.createElement("div");
-    paginator.className = "paginator";
-    
-    const prevButton = document.createElement("button");
-    prevButton.textContent = "Previous";
-    prevButton.className = "prev-button";
-
-    const pageInfo = document.createElement("span");
-    pageInfo.textContent = "Page 1 of 2";
-    pageInfo.className = "page-info";
-
-    const nextButton = document.createElement("button");
-    nextButton.textContent = "Next";
-    nextButton.className = "next-button";
-
-    paginator.appendChild(prevButton);
-    paginator.appendChild(pageInfo);
-    paginator.appendChild(nextButton);
-
-    return paginator;
 }

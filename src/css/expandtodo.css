@@ -7,7 +7,7 @@
 .outer-container {
     background-color: var(--light-gray-background);
     position: absolute;
-    overflow: auto;
+    overflow: hidden;
     right: 0;
     z-index: 1;
 
